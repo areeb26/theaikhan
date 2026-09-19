@@ -1,0 +1,17 @@
+# The Ai Khan
+Name: Areeb Ahmed Khan
+Brand: The Ai Khan
+Site: https://theaikhan.com
+Role: CTO & Cofounder of 12Pilot
+Company: Twelve Monday Technologies
+Location: Karachi, Sindh, Pakistan
+Description: Areeb Ahmed Khan (The Ai Khan) is an AI automation engineer and product developer in Karachi; CTO & Cofounder of 12Pilot (LinkedIn outreach SaaS). Builds AI systems, agents, and products including work associated with IntezamTech.
+Links:
+- https://12pilot.net
+- https://12pilot.net/about
+- https://www.linkedin.com/in/areeb-ahmed-khan-aiautomation
+- https://www.instagram.com/areeb.theaikhan
+- https://github.com/areeb26
+- https://www.intezamtech.com
+- https://www.intezamtech.com/ai-automation
+- https://www.12monday.net
