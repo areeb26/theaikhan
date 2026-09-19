@@ -8,6 +8,7 @@
   --mute: #a1a1aa;
   --signal: #7cff6b;
   --warn: #ff4d6d;
+  --container: 1320px;
 }
 
 @theme inline {
@@ -31,6 +32,10 @@ html {
   html {
     scroll-behavior: auto;
   }
+  .motion-section {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 body {
@@ -43,11 +48,45 @@ body {
   font-family: var(--font-syne), var(--font-geist-sans), system-ui, sans-serif;
 }
 
-.chapter-grid {
+.site-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-inline: 1.75rem;
+  }
+}
+
+.hud-mesh {
   background-image:
-    linear-gradient(rgba(30, 30, 40, 0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(30, 30, 40, 0.4) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(30, 30, 40, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 30, 40, 0.35) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+}
+
+.wordmark {
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
 }
 
 .skip-link {
@@ -70,6 +109,33 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
-  opacity: 0.35;
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.75);
+  opacity: 0.5;
+}
+
+.builds-rail {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.builds-rail::-webkit-scrollbar {
+  height: 6px;
+}
+
+.builds-rail::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
+.system-card {
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.system-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 255, 107, 0.35);
+  box-shadow: 0 20px 60px rgba(124, 255, 107, 0.08);
 }

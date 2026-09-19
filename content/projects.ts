@@ -1,4 +1,7 @@
 import { site } from "./site";
+import { featuredAgents } from "./agents";
+
+export type ProjectMetric = { label: string; value: string };
 
 export type Project = {
   slug: string;
@@ -10,8 +13,17 @@ export type Project = {
   proofUrl?: string;
   featured: boolean;
   stub?: boolean;
+  heroMetric?: ProjectMetric;
+  metrics?: ProjectMetric[];
   caseStudy?: {
     sections: { heading: string; body: string }[];
+  };
+  certificateProof?: {
+    headline: string;
+    app: string;
+    automation: string;
+    surfaces: string[];
+    metrics: ProjectMetric[];
   };
 };
 
@@ -26,22 +38,27 @@ export const projects: Project[] = [
     liveUrl: site.links.twelvePilot,
     proofUrl: site.links.twelvePilotAbout,
     featured: true,
+    heroMetric: { label: "Product", value: "LinkedIn outreach OS" },
+    metrics: [
+      { label: "Role", value: "CTO & Cofounder" },
+      { label: "Parent", value: "12Monday Technologies" },
+    ],
     caseStudy: {
       sections: [
         {
-          heading: "Product",
+          heading: "What it is",
           body:
-            "12Pilot is a LinkedIn outreach workspace built by Twelve Monday Technologies. It includes AI Outreach, prospecting, campaigns, Unibox, and Content Hub for teams running outbound on LinkedIn.",
+            "12Pilot is the LinkedIn outreach workspace from Twelve Monday Technologies — AI Outreach, prospecting, campaigns, Unibox, and Content Hub for teams running outbound on LinkedIn.",
         },
         {
-          heading: "Role",
+          heading: "What I do there",
           body:
-            "Areeb Ahmed Khan is CTO and Cofounder of 12Pilot, leading engineering and product direction for the platform.",
+            "Areeb Ahmed Khan is CTO and Cofounder, leading engineering and product direction for the platform.",
         },
         {
-          heading: "Proof",
+          heading: "Verify",
           body:
-            "Team and leadership details are published on the official 12Pilot about page.",
+            "Leadership and team details are on the official 12Pilot about page.",
         },
       ],
     },
@@ -50,23 +67,36 @@ export const projects: Project[] = [
     slug: "intezamtech",
     title: "IntezamTech",
     oneLiner:
-      "AI apps, websites, ops (POS/inventory and related), and a large AI automation catalog.",
-    role: "Builder / AI automation systems",
-    stack: ["AI agents", "Ops systems", "Web products"],
+      "AI apps, ops systems, and a large automation catalog — including certificate issuance at scale.",
+    role: "Builder · AI automation systems",
+    stack: ["AI agents", "Certificate automation", "Ops systems"],
     liveUrl: site.links.intezamtech,
     proofUrl: site.links.intezamAutomations,
     featured: true,
+    heroMetric: { label: "Certificates issued", value: "3,400+" },
+    metrics: [
+      { label: "Issuance time", value: "15+ min → seconds" },
+      { label: "Hours saved", value: "~850" },
+    ],
+    certificateProof: {
+      headline: "Name-on-certificate app + issuance automation",
+      app:
+        "Built a name-on-certificate application where learners generate personalized certificates.",
+      automation:
+        "Automated issuance so certificates flow into Seerat ki Dunya and Sarf ki Dunya without manual handoffs.",
+      surfaces: ["Seerat ki Dunya", "Sarf ki Dunya"],
+      metrics: [
+        { label: "Certificates", value: "3,400+" },
+        { label: "Before → after", value: "15+ min → seconds" },
+        { label: "Hours saved", value: "~850" },
+      ],
+    },
     caseStudy: {
       sections: [
         {
-          heading: "Scope",
+          heading: "Beyond certificates",
           body:
-            "Work associated with IntezamTech spans AI applications, operational software (including POS/inventory-style systems), and a broad catalog of AI automations documented on the public AI automation pages.",
-        },
-        {
-          heading: "Agents",
-          body:
-            "The automation catalog includes agents for support, enrichment, fulfillment, metadata, analysis, and email workflows. The home site highlights six; the full catalog lives on IntezamTech.",
+            "Work associated with IntezamTech also spans AI applications, operational software (POS/inventory-style systems), and a broad public automation catalog.",
         },
       ],
     },
@@ -74,16 +104,16 @@ export const projects: Project[] = [
   {
     slug: "kit",
     title: "KIT",
-    oneLiner: "3D keycap experience — selected build from portfolio work.",
+    oneLiner: "3D keycap experience — craft-forward WebGL build.",
     featured: true,
     stub: true,
     liveUrl: site.links.github,
     caseStudy: {
       sections: [
         {
-          heading: "Overview",
+          heading: "Craft",
           body:
-            "KIT is a featured craft build (3D keycap) in the portfolio strip. Additional assets and a dedicated case study can be expanded in a later phase.",
+            "KIT is a featured 3D keycap interaction — part of the cinematic web builds portfolio.",
         },
       ],
     },
@@ -91,15 +121,15 @@ export const projects: Project[] = [
   {
     slug: "nora-veld",
     title: "Nora Veld",
-    oneLiner: "Atelier-folio style site — selected client/craft build.",
+    oneLiner: "Atelier-folio — editorial site craft.",
     featured: true,
     stub: true,
     caseStudy: {
       sections: [
         {
-          heading: "Overview",
+          heading: "Craft",
           body:
-            "Nora Veld / atelier-folio represents cinematic web craft in the builds chapter. Placeholder case — link and media to be added when public URLs are confirmed.",
+            "Nora Veld / atelier-folio showcases editorial layout and motion for a creative brand.",
         },
       ],
     },
@@ -107,15 +137,15 @@ export const projects: Project[] = [
   {
     slug: "worktrack-pro",
     title: "WorkTrack Pro",
-    oneLiner: "Work tracking product — featured in the builds chapter.",
+    oneLiner: "Work tracking product in the builds lineup.",
     featured: true,
     stub: true,
     caseStudy: {
       sections: [
         {
-          heading: "Overview",
+          heading: "Product",
           body:
-            "WorkTrack Pro is among the products Areeb Ahmed Khan has built, alongside 12Pilot and IntezamTech-associated systems. This page is a light case stub until public product URLs and detail are added.",
+            "WorkTrack Pro sits alongside 12Pilot and IntezamTech-associated systems in the product portfolio.",
         },
       ],
     },
@@ -123,15 +153,15 @@ export const projects: Project[] = [
   {
     slug: "ai-hr",
     title: "AI HR",
-    oneLiner: "HR tooling with biometric attendance — featured build.",
+    oneLiner: "HR workflows including biometric attendance.",
     featured: true,
     stub: true,
     caseStudy: {
       sections: [
         {
-          heading: "Overview",
+          heading: "Product",
           body:
-            "AI HR covers HR workflows including biometric attendance, listed among products in the FAQ and builds chapter. Stub case study — expand when public detail is available.",
+            "AI HR covers HR operations including biometric attendance tooling.",
         },
       ],
     },
@@ -143,3 +173,5 @@ export function getProject(slug: string): Project | undefined {
 }
 
 export const projectSlugs = projects.map((p) => p.slug);
+
+export const intezamAgentPreview = featuredAgents;

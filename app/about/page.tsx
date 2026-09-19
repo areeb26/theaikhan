@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Panel } from "@/components/ui/Panel";
+import { PageShell } from "@/components/layout/PageShell";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { ChapterLabel } from "@/components/ui/ChapterLabel";
+import { MetricStat } from "@/components/ui/MetricStat";
 import { pageTitle, site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -10,37 +13,46 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="font-display text-4xl font-bold">
-        {site.name} — {site.brand}
-      </h1>
-      <p className="mt-6 text-lg leading-relaxed text-mute">{site.definition}</p>
+    <PageShell title={`${site.name}`} eyebrow={site.brand}>
+      <p className="-mt-6 max-w-2xl text-lg leading-relaxed text-mute">{site.definition}</p>
 
-      <Panel className="mt-10 space-y-4">
-        <h2 className="font-mono text-xs text-signal">NOW</h2>
-        <p>
-          {site.role}, {site.company} · {site.parentCompany}
-        </p>
-        <h2 className="font-mono text-xs text-signal">PREVIOUSLY</h2>
-        <p>{site.previously}</p>
-        <h2 className="font-mono text-xs text-signal">WHAT I BUILD</h2>
-        <p>
-          AI agents, SaaS, and ops systems — including 12Pilot and work
-          associated with IntezamTech.
-        </p>
-        <h2 className="font-mono text-xs text-signal">BASED IN</h2>
-        <p>{site.location}</p>
-      </Panel>
+      <div className="mt-12 grid gap-4 sm:grid-cols-3">
+        <MetricStat label="Role" value="CTO & Cofounder" />
+        <MetricStat label="Company" value="12Pilot" />
+        <MetricStat label="Base" value="Karachi" />
+      </div>
 
-      <p className="mt-10">
-        <Link href="/projects" className="text-signal hover:underline">
-          Selected proof →
+      <GlassPanel className="mt-10 space-y-8">
+        <div>
+          <ChapterLabel>Now</ChapterLabel>
+          <p className="mt-3 text-ink">
+            {site.role}, {site.company} · {site.parentCompany}
+          </p>
+        </div>
+        <div>
+          <ChapterLabel>Previously</ChapterLabel>
+          <p className="mt-3 text-mute">{site.previously}</p>
+        </div>
+        <div>
+          <ChapterLabel>Focus</ChapterLabel>
+          <p className="mt-3 text-mute">
+            AI agents, SaaS, and ops systems — 12Pilot and IntezamTech-associated
+            automation (including certificate issuance at scale).
+          </p>
+        </div>
+      </GlassPanel>
+
+      <p className="mt-10 font-mono text-sm">
+        <Link href="/projects/intezamtech" className="text-signal hover:underline">
+          IntezamTech case study →
         </Link>
         {" · "}
-        <Link href="/#signal" className="text-signal hover:underline">
-          Contact
+        <Link href="/projects/12pilot" className="text-signal hover:underline">
+          12Pilot →
         </Link>
+        {" · "}
+        <Link href="/#signal" className="text-signal hover:underline">Contact</Link>
       </p>
-    </main>
+    </PageShell>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PageShell } from "@/components/layout/PageShell";
+import { GlassPanel } from "@/components/ui/GlassPanel";
 import { faqItems } from "@/content/faq";
 import { pageTitle, site } from "@/content/site";
 
@@ -16,32 +18,28 @@ function faqPageJsonLd() {
     mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
   };
 }
 
 export default function FaqPage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <PageShell title="FAQ" eyebrow="AEO">
       <JsonLd data={faqPageJsonLd()} />
-      <h1 className="font-display text-4xl font-bold">FAQ</h1>
-      <p className="mt-4 text-mute">
+      <p className="-mt-6 text-mute">
         Quotable answers about {site.name} ({site.brand}).
       </p>
-      <dl className="mt-12 space-y-10">
+      <dl className="mt-10 space-y-6">
         {faqItems.map((item) => (
-          <div key={item.question}>
-            <dt className="font-display text-xl font-semibold text-ink">
+          <GlassPanel key={item.question} className="!p-6 sm:!p-8">
+            <dt className="font-display text-lg font-semibold text-ink sm:text-xl">
               {item.question}
             </dt>
             <dd className="mt-3 leading-relaxed text-mute">{item.answer}</dd>
-          </div>
+          </GlassPanel>
         ))}
       </dl>
-    </main>
+    </PageShell>
   );
 }

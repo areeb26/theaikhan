@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { getPerformanceTier, type PerformanceTier } from "@/lib/performance-tier";
 import { HomeChapters } from "./HomeChapters";
+import { HomeMotion } from "@/components/motion/HomeMotion";
 import { ScrollProgressBinder } from "@/components/motion/ScrollProgressBinder";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 
@@ -23,26 +24,36 @@ export function CinematicHome() {
   }, []);
 
   if (tier === null) {
-    return <HomeChapters cinematic={false} />;
+    return <HomeChapters />;
   }
 
-  const webgl = tier !== "reduced" && tier !== "low";
+  const reduced = tier === "reduced";
+  const motion = !reduced;
+  const webgl = tier === "high" || tier === "mid";
 
-  if (!webgl) {
-    return <HomeChapters cinematic={false} />;
+  const content = (
+    <HomeMotion enabled={motion}>
+      <HomeChapters cinematic={webgl} animateBoot={motion} />
+    </HomeMotion>
+  );
+
+  if (reduced) {
+    return content;
   }
 
   return (
     <SmoothScrollProvider>
-      <ScrollProgressBinder />
+      {webgl ? <ScrollProgressBinder /> : null}
       <div className="relative">
-        <div
-          className="pointer-events-none fixed inset-0 z-0 crt-vignette"
-          aria-hidden
-        >
-          <Experience />
-        </div>
-        <HomeChapters cinematic />
+        {webgl ? (
+          <div
+            className="pointer-events-none fixed inset-0 z-0 opacity-[0.22] crt-vignette"
+            aria-hidden
+          >
+            <Experience />
+          </div>
+        ) : null}
+        {content}
       </div>
     </SmoothScrollProvider>
   );

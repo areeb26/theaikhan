@@ -4,7 +4,12 @@ import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { BootTerminal } from "@/components/hud/BootTerminal";
 import { TransmitCta } from "@/components/hud/TransmitCta";
-import { Panel } from "@/components/ui/Panel";
+import { AgentChip } from "@/components/ui/AgentChip";
+import { ChapterLabel } from "@/components/ui/ChapterLabel";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { MetricStat } from "@/components/ui/MetricStat";
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import { ProjectArt } from "@/components/ui/ProjectArt";
 
 const bootLines = [
   "THE_AI_KHAN v1.0",
@@ -13,313 +18,253 @@ const bootLines = [
   `identity lock………… ${site.name.toUpperCase()}`,
 ];
 
-const systemsNodes = [
+const systems = [
   {
     name: "12Pilot",
-    detail: "CTO & Cofounder · LinkedIn outreach SaaS",
+    tag: "SaaS · Outreach",
+    blurb: "LinkedIn outreach OS — AI campaigns, Unibox, Content Hub.",
     href: "/projects/12pilot",
+    external: false,
   },
   {
     name: "IntezamTech",
-    detail: "AI apps · ops · automation catalog",
+    tag: "Agents · Ops",
+    blurb: "AI automations, certificate issuance, LMS-style ops.",
     href: "/projects/intezamtech",
+    external: false,
   },
   {
     name: "Twelve Monday",
-    detail: "Parent · product home",
+    tag: "Parent co",
+    blurb: "Product home for 12Pilot and company builds.",
     href: site.links.twelveMonday,
     external: true,
   },
 ];
 
-type Props = { cinematic?: boolean };
+type Props = { cinematic?: boolean; animateBoot?: boolean };
 
-export function HomeChapters({ cinematic = false }: Props) {
+export function HomeChapters({ cinematic = false, animateBoot = false }: Props) {
   const featured = projects.filter((p) => p.featured);
-  const sectionClass = cinematic
-    ? "relative z-10 border-b border-line/60 bg-void/75 backdrop-blur-[2px]"
-    : "relative border-b border-line";
+  const sectionShell = (id: string, extra = "") =>
+    `motion-section relative flex min-h-[100svh] flex-col justify-center py-20 sm:py-28 ${extra} ${
+      cinematic ? "z-10 bg-void/55 backdrop-blur-[3px]" : ""
+    }`;
 
   return (
-    <main id="scroll-root">
-      <a href="#identity" className="skip-link">
-        Skip intro
-      </a>
+    <main id="scroll-root" className="relative">
+      <a href="#identity" className="skip-link">Skip intro</a>
 
+      {/* Boot */}
       <section
         id="boot"
-        aria-label="Boot"
-        className={`chapter-grid ${sectionClass} flex min-h-[100svh] flex-col justify-center px-4 py-24 sm:px-6`}
+        aria-label="Boot sequence"
+        className={`${sectionShell("boot", "scanlines overflow-hidden")}`}
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,255,107,0.08),transparent_60%)]" />
-        <div className="relative mx-auto w-full max-w-6xl">
-          <p className="font-mono text-xs text-signal">CHAPTER_01 // BOOT</p>
-          {cinematic ? (
-            <BootTerminal lines={bootLines} />
-          ) : (
-            <div
-              className="mt-8 space-y-2 font-mono text-sm text-ink sm:text-base"
-              role="log"
-            >
-              {bootLines.map((line) => (
-                <p key={line} className="text-mute">
-                  <span className="text-signal">&gt;</span> {line}
-                </p>
-              ))}
-            </div>
-          )}
-          <h1 className="mt-12 font-display text-2xl font-bold text-ink sm:text-3xl">
-            The Ai Khan — {site.name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-mute sm:text-base">
-            {site.definition}
+        <div className="pointer-events-none absolute inset-0 hud-mesh opacity-50" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(124,255,107,0.07),transparent_45%)]" />
+        <div className="site-container relative">
+          <ChapterLabel>Initialize</ChapterLabel>
+          <div className="mt-10 max-w-xl rounded-xl border border-line/60 bg-panel/80 p-6 font-mono text-sm shadow-[0_0_60px_rgba(124,255,107,0.06)] sm:p-8">
+            {animateBoot ? (
+              <BootTerminal lines={bootLines} />
+            ) : (
+              <div className="space-y-2" role="log">
+                {bootLines.map((line) => (
+                  <p key={line} className="text-mute">
+                    <span className="text-signal">&gt;</span> {line}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+          <p className="mt-8 max-w-md text-sm text-mute">
+            AI command center for {site.name} — systems, agents, and shipped
+            products.
           </p>
         </div>
       </section>
 
-      <section
-        id="identity"
-        aria-label="Identity"
-        className={`${sectionClass} flex min-h-[100svh] flex-col justify-center px-4 py-24 sm:px-6`}
-      >
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="font-mono text-xs text-signal">CHAPTER_02 // IDENTITY</p>
-          <p
-            className="mt-6 font-display text-5xl font-extrabold tracking-tight text-ink sm:text-7xl lg:text-8xl"
-            aria-hidden
-          >
-            THE AI KHAN
+      {/* Identity */}
+      <section id="identity" aria-label="Identity" className={sectionShell("identity")}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(124,255,107,0.08),transparent_50%)]" />
+        <div className="site-container relative">
+          <ChapterLabel>Identity lock</ChapterLabel>
+          <p className="wordmark mt-6 font-display font-extrabold text-ink" aria-hidden>
+            THE AI
+            <br />
+            <span className="text-signal">KHAN</span>
           </p>
-          <p className="mt-4 text-2xl text-ink sm:text-3xl">{site.name}</p>
-          <p className="mt-2 font-mono text-sm text-mute sm:text-base">
+          <h1 className="sr-only">The Ai Khan — {site.name}</h1>
+          <p className="mt-8 text-xl text-ink sm:text-2xl">{site.name}</p>
+          <p className="mt-2 font-mono text-sm text-mute">
             {site.role} · {site.company} · Karachi
           </p>
-          <Panel className="mt-10 max-w-2xl">
+          <GlassPanel className="mt-10 max-w-2xl">
             <p className="text-base leading-relaxed text-mute">{site.definition}</p>
-            <ul className="mt-6 flex flex-wrap gap-4 font-mono text-sm">
-              <li>
-                <a
-                  href={site.links.linkedin}
-                  className="text-signal hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.links.instagram}
-                  className="text-signal hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.links.github}
-                  className="text-signal hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.links.twelvePilotAbout}
-                  className="text-signal hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  12Pilot About
-                </a>
-              </li>
+            <ul className="mt-6 flex flex-wrap gap-4 font-mono text-xs uppercase tracking-wider">
+              {[
+                { href: site.links.linkedin, label: "LinkedIn" },
+                { href: site.links.instagram, label: "Instagram" },
+                { href: site.links.github, label: "GitHub" },
+                { href: site.links.twelvePilotAbout, label: "12Pilot About" },
+              ].map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    className="text-signal hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
-          </Panel>
+          </GlassPanel>
         </div>
       </section>
 
-      <section
-        id="systems"
-        aria-label="Systems"
-        className={`chapter-grid ${sectionClass} flex min-h-[100svh] flex-col justify-center px-4 py-24 sm:px-6`}
-      >
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="font-mono text-xs text-signal">CHAPTER_03 // SYSTEMS</p>
-          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">
-            Command map
+      {/* Systems */}
+      <section id="systems" aria-label="Systems" className={sectionShell("systems", "hud-mesh")}>
+        <div className="site-container">
+          <ChapterLabel>Systems map</ChapterLabel>
+          <h2 className="mt-4 font-display text-3xl font-bold sm:text-4xl">
+            Products in orbit
           </h2>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-3">
-            {systemsNodes.map((node) => (
-              <li key={node.name}>
-                <Panel className="h-full transition-colors hover:border-signal/40">
-                  <h3 className="font-display text-xl font-bold text-ink">
-                    {node.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-mute">{node.detail}</p>
-                  {node.external ? (
-                    <a
-                      href={node.href}
-                      className="mt-4 inline-block font-mono text-sm text-signal hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open →
-                    </a>
-                  ) : (
-                    <Link
-                      href={node.href}
-                      className="mt-4 inline-block font-mono text-sm text-signal hover:underline"
-                    >
-                      Case study →
-                    </Link>
-                  )}
-                </Panel>
+          <ul className="mt-12 grid gap-5 lg:grid-cols-3">
+            {systems.map((s) => (
+              <li key={s.name}>
+                <GlassPanel className="system-card h-full !p-0 overflow-hidden">
+                  <ProjectArt
+                    slug={
+                      s.name === "12Pilot"
+                        ? "12pilot"
+                        : s.name === "IntezamTech"
+                          ? "intezamtech"
+                          : "twelve-monday"
+                    }
+                    title={s.name}
+                    className="h-32 rounded-none border-0"
+                  />
+                  <div className="p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-signal">{s.tag}</p>
+                    <h3 className="mt-2 font-display text-2xl font-bold">{s.name}</h3>
+                    <p className="mt-2 text-sm text-mute">{s.blurb}</p>
+                    {s.external ? (
+                      <a
+                        href={s.href}
+                        className="mt-5 inline-block font-mono text-xs text-signal hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open →
+                      </a>
+                    ) : (
+                      <Link href={s.href} className="mt-5 inline-block font-mono text-xs text-signal hover:underline">
+                        Case study →
+                      </Link>
+                    )}
+                  </div>
+                </GlassPanel>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section
-        id="agents"
-        aria-label="Agents"
-        className={`${sectionClass} flex min-h-[100svh] flex-col justify-center px-4 py-24 sm:px-6`}
-      >
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="font-mono text-xs text-signal">CHAPTER_04 // AGENTS</p>
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display text-4xl font-bold sm:text-5xl">
-              Agent index
+      {/* Agents */}
+      <section id="agents" aria-label="Agents" className={sectionShell("agents")}>
+        <div className="site-container">
+          <ChapterLabel>Agent index</ChapterLabel>
+          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <h2 className="font-display text-3xl font-bold sm:text-4xl">
+              Automation depth
             </h2>
-            <p className="font-mono text-sm text-mute">
-              AGENTS_INDEXED: 06 / 20+
-            </p>
+            <p className="font-mono text-xs text-mute">Indexed · 06 featured · 20+ catalog</p>
           </div>
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-            {featuredAgents.map((agent) => (
-              <li
-                key={agent.name}
-                className="rounded border border-line bg-panel/60 px-4 py-3 font-mono text-sm"
+
+          <div className="mt-10 grid gap-4 lg:grid-cols-12">
+            <GlassPanel className="lg:col-span-5 border-signal/30">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-signal">
+                Certificate automation
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-mute">
+                Name-on-certificate app plus issuance automation into Seerat ki
+                Dunya and Sarf ki Dunya.
+              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                <MetricStat label="Certs" value="3,400+" />
+                <MetricStat label="Time" value="15m→s" />
+                <MetricStat label="Saved" value="~850h" />
+              </div>
+              <Link
+                href="/projects/intezamtech"
+                className="mt-6 inline-block font-mono text-xs text-signal hover:underline"
               >
-                <span className="text-signal">{agent.name}</span>
-                <span className="text-mute"> — {agent.job}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8">
-            <a
-              href={site.links.intezamAutomations}
-              className="font-mono text-sm text-signal hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See full agent catalog on IntezamTech →
-            </a>
-            {" · "}
-            <Link
-              href="/projects/intezamtech"
-              className="font-mono text-sm text-signal hover:underline"
-            >
-              Case study
-            </Link>
-          </p>
+                IntezamTech case study →
+              </Link>
+            </GlassPanel>
+            <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+              {featuredAgents.map((a, i) => (
+                <AgentChip key={a.name} name={a.name} job={a.job} featured={i === 0} />
+              ))}
+            </div>
+          </div>
+          <a
+            href={site.links.intezamAutomations}
+            className="mt-8 inline-block font-mono text-xs text-signal hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Full agent catalog on IntezamTech →
+          </a>
         </div>
       </section>
 
-      <section
-        id="builds"
-        aria-label="Builds"
-        className={`chapter-grid ${sectionClass} flex min-h-[100svh] flex-col justify-center px-4 py-24 sm:px-6`}
-      >
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="font-mono text-xs text-signal">CHAPTER_05 // BUILDS</p>
-          <h2 className="mt-4 font-display text-4xl font-bold sm:text-5xl">
+      {/* Builds */}
+      <section id="builds" aria-label="Builds" className={sectionShell("builds")}>
+        <div className="site-container">
+          <ChapterLabel>Builds</ChapterLabel>
+          <h2 className="mt-4 font-display text-3xl font-bold sm:text-4xl">
             Selected work
           </h2>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="builds-rail mt-10 flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:overflow-visible">
             {featured.map((p) => (
-              <li key={p.slug}>
-                <Link href={`/projects/${p.slug}`} className="block h-full">
-                  <Panel className="h-full transition-colors hover:border-signal/50">
-                    <div
-                      className="mb-4 flex h-24 items-center justify-center rounded border border-dashed border-line bg-void font-mono text-xs text-mute"
-                      aria-hidden
-                    >
-                      Placeholder media
-                    </div>
-                    <h3 className="font-display text-lg font-bold">
-                      {p.title}
-                      {p.stub ? (
-                        <span className="ml-2 font-mono text-xs font-normal text-mute">
-                          (stub)
-                        </span>
-                      ) : null}
-                    </h3>
-                    <p className="mt-2 text-sm text-mute">{p.oneLiner}</p>
-                    {p.role ? (
-                      <p className="mt-2 font-mono text-xs text-signal">
-                        {p.role}
-                      </p>
-                    ) : null}
-                  </Panel>
-                </Link>
-              </li>
+              <ProjectCard key={p.slug} project={p} variant="rail" />
             ))}
-          </ul>
-          <p className="mt-8">
-            <Link
-              href="/projects"
-              className="font-mono text-sm text-signal hover:underline"
-            >
-              All projects →
-            </Link>
-          </p>
+          </div>
+          <Link href="/projects" className="mt-8 inline-block font-mono text-xs text-signal hover:underline">
+            All projects →
+          </Link>
         </div>
       </section>
 
-      <section
-        id="signal"
-        aria-label="Contact"
-        className={`${sectionClass} flex min-h-[100svh] flex-col justify-center border-b-0 px-4 py-24 sm:px-6`}
-      >
-        <div className="mx-auto w-full max-w-6xl text-center">
-          <p className="font-mono text-xs text-signal">CHAPTER_06 // SIGNAL</p>
-          <h2 className="mt-6 font-display text-5xl font-extrabold tracking-widest text-ink sm:text-7xl">
+      {/* Signal */}
+      <section id="signal" aria-label="Contact" className={sectionShell("signal", "border-b-0")}>
+        <div className="site-container text-center">
+          <ChapterLabel>Transmit</ChapterLabel>
+          <h2 className="mt-6 font-display text-5xl font-extrabold tracking-[0.08em] sm:text-6xl">
             TRANSMIT
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-mute">
-            Building AI systems or need an automation partner? Message The Ai
-            Khan — {site.name}, Karachi.
+            Building AI systems or need an automation partner? Message The Ai Khan
+            — {site.name}, Karachi.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            {cinematic ? (
-              <TransmitCta
-                href={site.links.linkedin}
-                className="inline-block rounded border border-signal bg-signal/10 px-8 py-4 font-mono text-sm font-semibold text-signal transition-colors hover:bg-signal/20"
-              >
-                LinkedIn
-              </TransmitCta>
-            ) : (
-              <a
-                href={site.links.linkedin}
-                className="rounded border border-signal bg-signal/10 px-8 py-4 font-mono text-sm font-semibold text-signal transition-colors hover:bg-signal/20"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            )}
+            <TransmitCta
+              href={site.links.linkedin}
+              className="inline-block rounded-full border border-signal bg-signal/10 px-10 py-4 font-mono text-sm font-semibold text-signal transition-colors hover:bg-signal/20"
+            >
+              LinkedIn
+            </TransmitCta>
             <a
               href={site.links.instagram}
-              className="rounded border border-line px-8 py-4 font-mono text-sm text-ink transition-colors hover:border-signal/50"
+              className="rounded-full border border-line/80 px-10 py-4 font-mono text-sm text-ink transition-colors hover:border-signal/40"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Instagram @areeb.theaikhan
+              @areeb.theaikhan
             </a>
           </div>
         </div>

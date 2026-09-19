@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Panel } from "@/components/ui/Panel";
 import { projects } from "@/content/projects";
 import { pageTitle } from "@/content/site";
+import { ChapterLabel } from "@/components/ui/ChapterLabel";
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import { PageShell } from "@/components/layout/PageShell";
 
 export const metadata: Metadata = {
   title: pageTitle("Projects"),
@@ -12,33 +13,18 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <h1 className="font-display text-4xl font-bold">Projects</h1>
+    <PageShell title="Projects" eyebrow="Proof">
+      <ChapterLabel>Curated builds</ChapterLabel>
       <p className="mt-4 max-w-2xl text-mute">
-        Curated proof — companies, automations, and selected builds.
+        Companies, automations, and craft work — not a dump of every repo.
       </p>
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2">
+      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <li key={p.slug}>
-            <Link href={`/projects/${p.slug}`}>
-              <Panel className="h-full hover:border-signal/40">
-                <h2 className="font-display text-2xl font-bold">
-                  {p.title}
-                  {p.stub ? (
-                    <span className="ml-2 font-mono text-xs font-normal text-mute">
-                      stub
-                    </span>
-                  ) : null}
-                </h2>
-                <p className="mt-2 text-sm text-mute">{p.oneLiner}</p>
-                {p.role ? (
-                  <p className="mt-3 font-mono text-xs text-signal">{p.role}</p>
-                ) : null}
-              </Panel>
-            </Link>
+            <ProjectCard project={p} />
           </li>
         ))}
       </ul>
-    </main>
+    </PageShell>
   );
 }
