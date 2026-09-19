@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <PageShell title="Work" eyebrow="Projects">
-      <div className="space-y-24">
+      <div className="space-y-32">
         {projects.map((p, i) => (
           <ProjectCard key={p.slug} project={p} index={i} />
         ))}

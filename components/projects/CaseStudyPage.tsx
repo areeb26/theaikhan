@@ -7,7 +7,7 @@ import { AgentChip } from "@/components/ui/AgentChip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { MetricStat } from "@/components/ui/MetricStat";
-import { ProjectArt } from "@/components/ui/ProjectArt";
+import { MockFrame } from "@/components/ui/MockFrame";
 
 type Props = { slug: string };
 
@@ -20,52 +20,88 @@ export function CaseStudyPage({ slug }: Props) {
 
   return (
     <article>
-      <header className="relative min-h-[70vh] overflow-hidden sm:min-h-[80vh]">
-        <ProjectArt slug={slug} title={project.title} className="absolute inset-0 h-full w-full" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
-        <div className="site-container relative flex min-h-[70vh] flex-col justify-end pb-16 pt-28 sm:min-h-[80vh] sm:pb-20">
+      <header className="relative min-h-[85svh] overflow-hidden">
+        <div className={`absolute inset-0 ${isIntezam ? "mesh-violet" : "mesh-warm"}`} aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/30 to-bg" />
+
+        {isIntezam ? (
+          <p
+            className="pointer-events-none absolute left-1/2 top-[20%] -translate-x-1/2 select-none font-display stat-giant text-accent/20 sm:top-[15%]"
+            aria-hidden
+          >
+            3,400+
+          </p>
+        ) : null}
+
+        <div className="site-container relative flex min-h-[85svh] flex-col justify-end pb-16 pt-28 sm:pb-24">
           <Eyebrow>{project.role ?? "Project"}</Eyebrow>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl font-bold tracking-tight sm:text-7xl">
+          <h1 className="mt-6 max-w-4xl font-display text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">
             {project.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-mute">{project.oneLiner}</p>
+          <p className="mt-6 max-w-2xl text-xl text-zinc-300">{project.oneLiner}</p>
+
           {isIntezam && project.heroMetric ? (
-            <div className="mt-12">
+            <div className="mt-12 border-l-4 border-accent pl-6">
               <MetricStat label={project.heroMetric.label} value={project.heroMetric.value} large />
+            </div>
+          ) : null}
+
+          {is12Pilot ? (
+            <div className="mt-12 flex flex-wrap gap-3">
+              {["AI Outreach", "Campaigns", "Unibox", "Content Hub"].map((f) => (
+                <span
+                  key={f}
+                  className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium"
+                >
+                  {f}
+                </span>
+              ))}
             </div>
           ) : null}
         </div>
       </header>
 
-      <div className="site-container space-y-20 py-20 sm:py-28">
-        {!isIntezam && project.heroMetric ? (
-          <div className="grid gap-10 sm:grid-cols-3">
-            <MetricStat label={project.heroMetric.label} value={project.heroMetric.value} large />
-            {project.metrics?.map((m) => (
+      <div className="site-container space-y-24 py-20 sm:space-y-32 sm:py-28">
+        <MockFrame slug={slug} title={project.title} className="max-w-5xl" />
+
+        {is12Pilot && project.metrics ? (
+          <div className="grid gap-8 sm:grid-cols-3">
+            {project.heroMetric ? (
+              <MetricStat label={project.heroMetric.label} value={project.heroMetric.value} large />
+            ) : null}
+            {project.metrics.map((m) => (
               <MetricStat key={m.label} label={m.label} value={m.value} />
             ))}
           </div>
         ) : null}
 
         {isIntezam && project.certificateProof ? (
-          <section className="grid gap-12 lg:grid-cols-2 lg:items-start">
-            <div>
-              <h2 className="font-display text-3xl font-bold sm:text-4xl">
+          <section className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-7">
+              <h2 className="font-display text-4xl font-bold sm:text-5xl">
                 {project.certificateProof.headline}
               </h2>
-              <p className="mt-6 text-lg leading-relaxed text-mute">{project.certificateProof.app}</p>
-              <p className="mt-4 text-lg leading-relaxed text-mute">{project.certificateProof.automation}</p>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <p className="mt-8 text-xl leading-relaxed text-zinc-300">{project.certificateProof.app}</p>
+              <p className="mt-6 text-xl leading-relaxed text-zinc-300">{project.certificateProof.automation}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
                 {project.certificateProof.surfaces.map((s) => (
-                  <span key={s} className="rounded-full border border-line px-4 py-2 text-sm text-ink">
+                  <span
+                    key={s}
+                    className="rounded-full bg-accent/15 px-5 py-2.5 text-sm font-semibold text-accent"
+                  >
                     {s}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="grid gap-8 rounded-3xl border border-line bg-surface p-8 sm:p-10">
+            <div className="space-y-6 rounded-3xl border border-white/10 bg-surface p-8 lg:col-span-5 lg:p-10">
               {project.certificateProof.metrics.map((m) => (
-                <MetricStat key={m.label} label={m.label} value={m.value} large={m.label === "Certificates"} />
+                <MetricStat
+                  key={m.label}
+                  label={m.label}
+                  value={m.value}
+                  large={m.label === "Certificates"}
+                />
               ))}
             </div>
           </section>
@@ -73,31 +109,32 @@ export function CaseStudyPage({ slug }: Props) {
 
         {project.caseStudy?.sections.map((s) => (
           <GlassPanel key={s.heading}>
-            <h2 className="font-display text-2xl font-bold">{s.heading}</h2>
-            <p className="mt-4 text-lg leading-relaxed text-mute">{s.body}</p>
+            <h2 className="font-display text-3xl font-bold">{s.heading}</h2>
+            <p className="mt-5 text-lg leading-relaxed text-zinc-300">{s.body}</p>
           </GlassPanel>
         ))}
 
         {isIntezam ? (
           <section>
-            <h2 className="font-display text-2xl font-bold">Automation catalog</h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <h2 className="font-display text-3xl font-bold">Agent catalog</h2>
+            <p className="mt-3 text-mute">Featured automations — full list on IntezamTech.</p>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {featuredAgents.map((a) => (
                 <AgentChip key={a.name} name={a.name} job={a.job} />
               ))}
             </div>
             <a
               href={site.links.intezamAutomations}
-              className="mt-10 inline-block rounded-full bg-accent px-8 py-4 text-sm font-semibold text-ink"
+              className="mt-10 inline-block rounded-full bg-accent px-10 py-4 text-sm font-semibold text-white"
               target="_blank"
               rel="noopener noreferrer"
             >
-              View full catalog
+              intezamtech.com/ai-automation
             </a>
           </section>
         ) : null}
 
-        <div className="flex flex-wrap gap-6 text-sm font-semibold">
+        <div className="flex flex-wrap gap-8 border-t border-white/10 pt-12 text-sm font-semibold">
           {project.liveUrl ? (
             <a href={project.liveUrl} className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">
               Live site →
@@ -108,7 +145,7 @@ export function CaseStudyPage({ slug }: Props) {
               Proof →
             </a>
           ) : null}
-          <Link href="/projects" className="text-mute hover:text-accent">All projects</Link>
+          <Link href="/projects" className="text-zinc-400 hover:text-accent">All projects</Link>
         </div>
 
         {is12Pilot ? (

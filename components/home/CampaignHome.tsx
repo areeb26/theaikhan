@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
+import { HeroSection } from "@/components/home/HeroSection";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { MagneticLink } from "@/components/ui/MagneticLink";
+import { MockFrame } from "@/components/ui/MockFrame";
 
 export function CampaignHome() {
   const featured = projects.filter((p) => p.featured);
@@ -13,77 +15,70 @@ export function CampaignHome() {
     <main id="scroll-root">
       <a href="#work" className="skip-link">Skip to work</a>
 
-      {/* Hero */}
-      <section className="hero-pin relative min-h-[100svh] overflow-hidden">
-        <div className="hero-media absolute inset-0 mesh-violet" aria-hidden />
-        <div className="site-container relative z-10 flex min-h-[100svh] flex-col justify-end pb-16 pt-28 sm:pb-24">
-          <div className="hero-title">
-            <Eyebrow className="text-ink/70">{site.name}</Eyebrow>
-            <p className="billboard mt-4 font-display text-ink">
-              THE AI
-              <br />
-              <span className="text-accent">KHAN</span>
-            </p>
-            <h1 className="sr-only">The Ai Khan — {site.name}</h1>
-            <p className="mt-8 max-w-lg text-lg text-mute sm:text-xl">
-              {site.role}, {site.company} · Karachi
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
-      {/* Proof strip */}
-      <section className="reveal-block border-y border-line bg-surface py-16 sm:py-20">
-        <div className="site-container grid gap-12 lg:grid-cols-2 lg:gap-8">
-          <div className="flex flex-col justify-center">
-            <Eyebrow>Proof</Eyebrow>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      {/* Proof */}
+      <section className="reveal-block bleed-x border-y border-white/10 bg-surface">
+        <div className="site-container grid min-h-[min(80vh,720px)] lg:grid-cols-2">
+          <div className="flex flex-col justify-center border-b border-white/10 py-16 lg:border-b-0 lg:border-r lg:py-24 lg:pr-16">
+            <Eyebrow>12Pilot · CTO</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               {pilot?.title}
             </h2>
-            <p className="mt-4 text-mute">{pilot?.oneLiner}</p>
+            <p className="mt-6 max-w-md text-lg text-mute">{pilot?.oneLiner}</p>
             <Link
               href="/projects/12pilot"
-              className="mt-6 inline-block text-sm font-semibold text-accent hover:underline"
+              className="mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold text-accent"
             >
-              12Pilot case study →
+              Case study <span aria-hidden>→</span>
             </Link>
+            <a
+              href={site.links.twelvePilotAbout}
+              className="mt-3 block text-sm text-zinc-400 hover:text-accent"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Team proof on 12pilot.net/about
+            </a>
           </div>
-          <div className="relative overflow-hidden rounded-3xl border border-line p-8 sm:p-10 mesh-warm">
-            <Eyebrow>IntezamTech · Certificates</Eyebrow>
-            <p className="mt-6 font-display text-6xl font-bold tracking-tighter text-ink sm:text-7xl">
+          <div className="relative flex flex-col justify-center overflow-hidden py-16 lg:py-24 lg:pl-16">
+            <p
+              className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 select-none font-display stat-giant text-accent/15"
+              aria-hidden
+            >
+              3,400+
+            </p>
+            <Eyebrow>IntezamTech</Eyebrow>
+            <p className="stat-giant mt-4 font-display text-ink">
               3,400<span className="text-accent">+</span>
             </p>
-            <p className="mt-2 text-sm text-mute">certificates issued</p>
-            <ul className="mt-8 space-y-2 text-sm text-mute">
-              <li>15+ min manual work → seconds</li>
-              <li>~850 hours saved</li>
+            <p className="mt-2 text-lg text-zinc-300">certificates issued</p>
+            <ul className="mt-8 space-y-3 text-base text-mute">
+              <li>Name-on-certificate app + issuance automation</li>
               <li>Seerat ki Dunya & Sarf ki Dunya</li>
+              <li>15+ min → seconds · ~850 hours saved</li>
             </ul>
             <Link
               href="/projects/intezamtech"
-              className="mt-8 inline-block text-sm font-semibold text-accent hover:underline"
+              className="mt-10 inline-flex w-fit rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-ink hover:bg-accent hover:text-white"
             >
-              Full story →
+              Certificate system story
             </Link>
           </div>
         </div>
       </section>
 
       {/* Work */}
-      <section id="work" className="py-20 sm:py-32">
+      <section id="work" className="py-24 sm:py-36">
         <div className="site-container">
-          <div className="reveal-block flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="reveal-block flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <Eyebrow>Selected work</Eyebrow>
-              <h2 className="mt-3 font-display text-4xl font-bold sm:text-5xl">
-                Products & builds
-              </h2>
+              <h2 className="mt-4 font-display text-5xl font-bold sm:text-6xl">Products</h2>
             </div>
-            <Link href="/projects" className="text-sm font-semibold text-accent hover:underline">
-              All projects
-            </Link>
+            <Link href="/projects" className="text-sm font-semibold text-accent">All projects →</Link>
           </div>
-          <div className="mt-16 space-y-20 sm:space-y-28">
+          <div className="mt-20 space-y-28 sm:space-y-36">
             {featured.map((p, i) => (
               <div key={p.slug} className="reveal-block">
                 <ProjectCard project={p} index={i} />
@@ -94,56 +89,56 @@ export function CampaignHome() {
       </section>
 
       {/* About */}
-      <section id="about" className="reveal-block border-t border-line py-20 sm:py-28">
-        <div className="site-container grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+      <section id="about" className="reveal-block bleed-x mesh-ink py-24 sm:py-32">
+        <div className="site-container grid gap-16 lg:grid-cols-2 lg:items-center">
+          <div>
             <Eyebrow>About</Eyebrow>
-            <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              AI systems,
+            <h2 className="mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+              Built in Karachi.
               <br />
-              shipped.
+              <span className="text-accent">Shipped globally.</span>
             </h2>
           </div>
-          <div className="lg:col-span-7 lg:pt-8">
-            <p className="text-lg leading-relaxed text-mute sm:text-xl">{site.definition}</p>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm font-medium">
-              <a href={site.links.linkedin} className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href={site.links.instagram} className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href={site.links.github} className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href={site.links.twelvePilotAbout} className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">12Pilot About</a>
+          <div>
+            <p className="text-xl leading-relaxed text-zinc-300">{site.definition}</p>
+            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm font-semibold">
+              <a href={site.links.linkedin} className="hover:text-accent" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href={site.links.instagram} className="hover:text-accent" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href={site.links.github} className="hover:text-accent" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href={site.links.intezamtech} className="hover:text-accent" target="_blank" rel="noopener noreferrer">IntezamTech</a>
             </div>
-            <Link href="/about" className="mt-8 inline-block text-sm font-semibold text-ink hover:text-accent">
-              More about Areeb →
-            </Link>
+            <Link href="/about" className="mt-8 inline-block font-semibold text-accent">Full about →</Link>
           </div>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="reveal-block relative overflow-hidden py-24 sm:py-32">
-        <div className="absolute inset-0 mesh-violet opacity-80" aria-hidden />
-        <div className="site-container relative text-center">
-          <h2 className="font-display text-5xl font-bold tracking-tight sm:text-6xl">
-            Let&apos;s build
-          </h2>
-          <p className="mx-auto mt-6 max-w-md text-mute">
-            AI systems or automation — reach out via LinkedIn or Instagram.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <MagneticLink
-              href={site.links.linkedin}
-              className="rounded-full bg-accent px-10 py-4 text-sm font-semibold text-ink"
-            >
-              LinkedIn
-            </MagneticLink>
-            <a
-              href={site.links.instagram}
-              className="rounded-full border border-ink/30 px-10 py-4 text-sm font-semibold text-ink hover:border-accent"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @areeb.theaikhan
-            </a>
+      <section id="contact" className="reveal-block relative overflow-hidden py-28 sm:py-40">
+        <div className="absolute inset-0 mesh-violet" aria-hidden />
+        <div className="site-container relative">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <h2 className="font-display text-5xl font-bold sm:text-7xl">
+              Let&apos;s build something ambitious.
+            </h2>
+            <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+              <MagneticLink
+                href={site.links.linkedin}
+                className="rounded-full bg-accent px-10 py-4 text-center text-sm font-semibold text-white"
+              >
+                LinkedIn
+              </MagneticLink>
+              <a
+                href={site.links.instagram}
+                className="rounded-full border border-white/25 px-10 py-4 text-center text-sm font-semibold hover:border-accent"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @areeb.theaikhan
+              </a>
+            </div>
+          </div>
+          <div className="mt-16 hidden lg:block">
+            <MockFrame slug="12pilot" title="12Pilot" className="max-w-2xl opacity-60" />
           </div>
         </div>
       </section>

@@ -15,7 +15,7 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -23,20 +23,20 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-colors duration-500 ${
-        scrolled ? "bg-bg/80 backdrop-blur-xl" : "bg-transparent"
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+        scrolled ? "glass-nav" : ""
       }`}
     >
-      <div className="site-container flex h-16 items-center justify-between sm:h-20">
-        <Link href="/" className="font-display text-lg font-bold tracking-tight text-ink">
+      <div className="site-container flex h-16 items-center justify-between sm:h-[4.5rem]">
+        <Link href="/" className="font-display text-xl font-bold tracking-tight">
           {site.brand}
         </Link>
-        <nav className="flex items-center gap-6 sm:gap-10" aria-label="Main">
+        <nav className="flex items-center gap-5 sm:gap-9" aria-label="Main">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-mute transition-colors hover:text-accent"
+              className="text-sm font-medium text-zinc-400 transition-colors hover:text-white"
             >
               {l.label}
             </Link>
