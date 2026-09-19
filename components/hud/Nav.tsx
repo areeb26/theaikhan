@@ -5,17 +5,17 @@ import { useEffect, useState } from "react";
 import { site } from "@/content/site";
 
 const links = [
+  { href: "/projects", label: "Work" },
   { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
   { href: "/faq", label: "FAQ" },
-  { href: "/#signal", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 32);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -23,29 +23,20 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-line/50 bg-void/70 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+      className={`fixed top-0 z-50 w-full transition-colors duration-500 ${
+        scrolled ? "bg-bg/80 backdrop-blur-xl" : "bg-transparent"
       }`}
     >
-      <div className="site-container flex h-14 items-center justify-between sm:h-16">
-        <Link
-          href="/"
-          className="group flex items-center gap-2 font-display text-sm font-bold tracking-[0.15em] text-ink uppercase"
-        >
-          <span
-            className="inline-block h-2 w-2 rounded-full bg-signal shadow-[0_0_12px_rgba(124,255,107,0.8)] transition-transform group-hover:scale-125"
-            aria-hidden
-          />
+      <div className="site-container flex h-16 items-center justify-between sm:h-20">
+        <Link href="/" className="font-display text-lg font-bold tracking-tight text-ink">
           {site.brand}
         </Link>
-        <nav className="flex items-center gap-3 sm:gap-8" aria-label="Main">
+        <nav className="flex items-center gap-6 sm:gap-10" aria-label="Main">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="font-mono text-[11px] uppercase tracking-wider text-mute transition-colors hover:text-signal sm:text-xs"
+              className="text-sm font-medium text-mute transition-colors hover:text-accent"
             >
               {l.label}
             </Link>

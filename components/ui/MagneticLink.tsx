@@ -12,24 +12,23 @@ type Props = {
   className?: string;
 };
 
-export function TransmitCta({ href, children, className }: Props) {
-  const btnRef = useRef<HTMLAnchorElement>(null);
+export function MagneticLink({ href, children, className }: Props) {
+  const ref = useRef<HTMLAnchorElement>(null);
 
   useGSAP(
     () => {
-      const el = btnRef.current;
+      const el = ref.current;
       if (!el || !window.matchMedia("(pointer: fine)").matches) return;
-
       const onMove = (e: MouseEvent) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(el, { x: x * 0.15, y: y * 0.15, duration: 0.3, ease: "power2.out" });
+        const r = el.getBoundingClientRect();
+        gsap.to(el, {
+          x: (e.clientX - r.left - r.width / 2) * 0.12,
+          y: (e.clientY - r.top - r.height / 2) * 0.12,
+          duration: 0.35,
+          ease: "power2.out",
+        });
       };
-      const onLeave = () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
-      };
-
+      const onLeave = () => gsap.to(el, { x: 0, y: 0, duration: 0.45 });
       el.addEventListener("mousemove", onMove);
       el.addEventListener("mouseleave", onLeave);
       return () => {
@@ -37,11 +36,11 @@ export function TransmitCta({ href, children, className }: Props) {
         el.removeEventListener("mouseleave", onLeave);
       };
     },
-    { scope: btnRef },
+    { scope: ref },
   );
 
   return (
-    <a ref={btnRef} href={href} className={className} target="_blank" rel="noopener noreferrer">
+    <a ref={ref} href={href} className={className} target="_blank" rel="noopener noreferrer">
       {children}
     </a>
   );

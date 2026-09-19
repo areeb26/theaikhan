@@ -1,16 +1,10 @@
-type Props = { name: string; job: string; featured?: boolean };
+type Props = { name: string; job: string };
 
-export function AgentChip({ name, job, featured }: Props) {
+export function AgentChip({ name, job }: Props) {
   return (
-    <div
-      className={`rounded-lg border px-4 py-3 transition-colors ${
-        featured
-          ? "border-signal/40 bg-signal/5"
-          : "border-line/70 bg-panel/40 hover:border-signal/25"
-      }`}
-    >
-      <p className="font-mono text-sm text-signal">{name}</p>
-      <p className="mt-1 text-xs leading-relaxed text-mute">{job}</p>
+    <div className="rounded-2xl border border-line/80 bg-surface/80 px-5 py-4 backdrop-blur-sm">
+      <p className="font-medium text-ink">{name}</p>
+      <p className="mt-1 text-sm text-mute">{job}</p>
     </div>
   );
 }

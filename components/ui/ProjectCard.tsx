@@ -2,37 +2,26 @@ import Link from "next/link";
 import type { Project } from "@/content/projects";
 import { ProjectArt } from "./ProjectArt";
 
-type Props = { project: Project; variant?: "grid" | "rail" };
+type Props = { project: Project; index?: number };
 
-export function ProjectCard({ project, variant = "grid" }: Props) {
-  const rail = variant === "rail";
+export function ProjectCard({ project, index = 0 }: Props) {
+  const offset = index % 2 === 1 ? "lg:mt-24" : "";
 
   return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className={`group block ${rail ? "min-w-[280px] snap-center sm:min-w-[340px]" : ""}`}
-    >
-      <article
-        className={`overflow-hidden rounded-xl border border-line/70 bg-panel/30 transition-all duration-300 hover:border-signal/35 hover:shadow-[0_0_40px_rgba(124,255,107,0.08)] ${
-          rail ? "h-full" : ""
-        }`}
-      >
+    <Link href={`/projects/${project.slug}`} className={`group block ${offset}`}>
+      <article className="overflow-hidden">
         <ProjectArt
           slug={project.slug}
           title={project.title}
-          className={rail ? "h-40" : "h-44 sm:h-52"}
+          className="aspect-[4/5] sm:aspect-[16/10] transition-transform duration-700 group-hover:scale-[1.02]"
         />
-        <div className="p-5">
-          <h3 className="font-display text-xl font-bold text-ink group-hover:text-signal transition-colors">
+        <div className="mt-6 max-w-md">
+          <h3 className="font-display text-3xl font-bold tracking-tight transition-colors group-hover:text-accent sm:text-4xl">
             {project.title}
           </h3>
-          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-mute">
-            {project.oneLiner}
-          </p>
+          <p className="mt-3 text-base leading-relaxed text-mute">{project.oneLiner}</p>
           {project.role ? (
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-signal/90">
-              {project.role}
-            </p>
+            <p className="mt-4 text-sm font-medium text-accent">{project.role}</p>
           ) : null}
         </div>
       </article>

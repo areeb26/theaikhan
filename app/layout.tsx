@@ -51,10 +51,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-void text-ink">
+      <body className="flex min-h-full flex-col bg-bg text-ink">
         <JsonLd data={personJsonLd()} />
         <Nav />
-        <div className="flex flex-1 flex-col pt-14">{children}</div>
+        <div className="flex flex-1 flex-col">{children}</div>
         <Footer />
       </body>
     </html>

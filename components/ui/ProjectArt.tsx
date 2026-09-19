@@ -2,27 +2,26 @@ type Props = { slug: string; title: string; className?: string };
 
 const palettes: Record<string, string> = {
   "12pilot":
-    "from-[#0a1628] via-[#0c2018] to-[#050507] shadow-[inset_0_0_80px_rgba(124,255,107,0.12)]",
+    "bg-[linear-gradient(135deg,#1a1030_0%,#2d1b4e_40%,#030303_100%)]",
   intezamtech:
-    "from-[#0a1a0f] via-[#142410] to-[#050507] shadow-[inset_0_0_100px_rgba(124,255,107,0.18)]",
-  kit: "from-[#1a0a28] via-[#12081a] to-[#050507]",
-  "nora-veld": "from-[#1a1410] via-[#0f0f12] to-[#050507]",
-  "worktrack-pro": "from-[#0a1420] via-[#0c1018] to-[#050507]",
-  "ai-hr": "from-[#14100a] via-[#101418] to-[#050507]",
-  "twelve-monday": "from-[#0a1018] via-[#0c1410] to-[#050507]",
+    "bg-[linear-gradient(120deg,#0f0820_0%,#4c1d95_35%,#030303_85%)]",
+  kit: "bg-[linear-gradient(160deg,#2e1065_0%,#030303_70%)]",
+  "nora-veld": "bg-[linear-gradient(140deg,#1c1917_0%,#3b0764_50%,#030303_100%)]",
+  "worktrack-pro": "bg-[linear-gradient(130deg,#0c1222_0%,#5b21b6_45%,#030303_100%)]",
+  "ai-hr": "bg-[linear-gradient(125deg,#18181b_0%,#6d28d9_40%,#030303_100%)]",
+  "twelve-monday": "bg-[linear-gradient(135deg,#0f0f14_0%,#4c1d95_50%,#030303_100%)]",
 };
 
 export function ProjectArt({ slug, title, className = "" }: Props) {
-  const gradient = palettes[slug] ?? "from-panel via-void to-void";
+  const bg = palettes[slug] ?? "mesh-violet";
 
   return (
     <div
-      className={`relative overflow-hidden rounded-lg border border-line/60 bg-gradient-to-br ${gradient} ${className}`}
+      className={`relative overflow-hidden ${bg} ${className}`}
       aria-hidden
     >
-      <div className="pointer-events-none absolute inset-0 opacity-30 hud-mesh" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,255,107,0.15),transparent_50%)]" />
-      <p className="absolute bottom-3 left-4 font-mono text-[10px] uppercase tracking-widest text-ink/40">
+      <div className="absolute -right-1/4 top-1/4 h-[120%] w-[70%] rotate-12 rounded-full bg-accent/20 blur-3xl" />
+      <p className="absolute bottom-6 left-6 text-sm font-medium text-ink/50">
         {title}
       </p>
     </div>

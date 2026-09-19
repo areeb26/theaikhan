@@ -1,24 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --void: #050507;
-  --panel: #0c0c10;
-  --line: #1e1e28;
-  --ink: #f4f4f5;
+  --bg: #030303;
+  --surface: #0a0a0c;
+  --line: #1f1f24;
+  --ink: #fafafa;
   --mute: #a1a1aa;
-  --signal: #7cff6b;
-  --warn: #ff4d6d;
-  --container: 1320px;
+  --accent: #8b5cf6;
+  --container: 1280px;
 }
 
 @theme inline {
-  --color-void: var(--void);
-  --color-panel: var(--panel);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
   --color-line: var(--line);
   --color-ink: var(--ink);
   --color-mute: var(--mute);
-  --color-signal: var(--signal);
-  --color-warn: var(--warn);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-syne);
@@ -32,14 +30,14 @@ html {
   html {
     scroll-behavior: auto;
   }
-  .motion-section {
+  .reveal-block {
     opacity: 1 !important;
     transform: none !important;
   }
 }
 
 body {
-  background: var(--void);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
@@ -57,36 +55,19 @@ body {
 
 @media (min-width: 640px) {
   .site-container {
-    padding-inline: 1.75rem;
+    padding-inline: 2rem;
   }
 }
 
-.hud-mesh {
-  background-image:
-    linear-gradient(rgba(30, 30, 40, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(30, 30, 40, 0.35) 1px, transparent 1px);
-  background-size: 40px 40px;
+.billboard {
+  font-size: clamp(4rem, 14vw, 11rem);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  font-weight: 800;
 }
 
-.scanlines::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.04;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(255, 255, 255, 0.03) 2px,
-    rgba(255, 255, 255, 0.03) 4px
-  );
-}
-
-.wordmark {
-  font-size: clamp(3.5rem, 12vw, 7.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+.text-balance {
+  text-wrap: balance;
 }
 
 .skip-link {
@@ -94,8 +75,8 @@ body {
   left: -9999px;
   z-index: 100;
   padding: 0.5rem 1rem;
-  background: var(--signal);
-  color: var(--void);
+  background: var(--accent);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -104,38 +85,15 @@ body {
   top: 1rem;
 }
 
-.crt-vignette::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.75);
-  opacity: 0.5;
+.mesh-violet {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(139, 92, 246, 0.35), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(139, 92, 246, 0.15), transparent 45%),
+    linear-gradient(160deg, #0a0612 0%, #030303 50%, #050508 100%);
 }
 
-.builds-rail {
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
-}
-
-.builds-rail::-webkit-scrollbar {
-  height: 6px;
-}
-
-.builds-rail::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 3px;
-}
-
-.system-card {
-  transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
-.system-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(124, 255, 107, 0.35);
-  box-shadow: 0 20px 60px rgba(124, 255, 107, 0.08);
+.mesh-warm {
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(139, 92, 246, 0.2), transparent 50%),
+    linear-gradient(145deg, #121018 0%, #030303 100%);
 }
