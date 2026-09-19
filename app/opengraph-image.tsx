@@ -15,14 +15,14 @@ export default function OgImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #1a1030 0%, #030303 60%)",
+          background: "linear-gradient(160deg, #141414 0%, #050505 100%)",
           padding: 80,
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ fontSize: 64, fontWeight: 800, color: "#fafafa" }}>The Ai Khan</div>
-        <div style={{ fontSize: 32, color: "#8B5CF6", marginTop: 20 }}>Areeb Ahmed Khan</div>
-        <div style={{ fontSize: 22, color: "#a1a1aa", marginTop: 16 }}>
+        <div style={{ fontSize: 64, fontWeight: 800, color: "#F5F0E8" }}>The Ai Khan</div>
+        <div style={{ fontSize: 32, color: "#FF4D00", marginTop: 20 }}>Areeb Ahmed Khan</div>
+        <div style={{ fontSize: 22, color: "#A3A3A3", marginTop: 16 }}>
           AI systems, agents & products · Karachi
         </div>
       </div>

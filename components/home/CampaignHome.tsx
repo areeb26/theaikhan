@@ -114,7 +114,7 @@ export function CampaignHome() {
 
       {/* Contact */}
       <section id="contact" className="reveal-block relative overflow-hidden py-28 sm:py-40">
-        <div className="absolute inset-0 mesh-violet" aria-hidden />
+        <div className="absolute inset-0 mesh-hero" aria-hidden />
         <div className="site-container relative">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <h2 className="font-display text-5xl font-bold sm:text-7xl">

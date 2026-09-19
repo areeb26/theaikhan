@@ -9,7 +9,7 @@ import { particleMultiplier } from "@/lib/performance-tier";
 import { scrollBridge } from "@/lib/scroll-store";
 import { CameraRig } from "./CameraRig";
 
-const SIGNAL = "#7cff6b";
+const SIGNAL = "#ff4d00";
 
 type Props = { tier: PerformanceTier };
 

@@ -21,7 +21,7 @@ export function CaseStudyPage({ slug }: Props) {
   return (
     <article>
       <header className="relative min-h-[85svh] overflow-hidden">
-        <div className={`absolute inset-0 ${isIntezam ? "mesh-violet" : "mesh-warm"}`} aria-hidden />
+        <div className={`absolute inset-0 ${isIntezam ? "mesh-section" : "mesh-hero"}`} aria-hidden />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/30 to-bg" />
 
         {isIntezam ? (

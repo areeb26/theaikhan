@@ -1,11 +1,9 @@
 # The Ai Khan — Campaign redesign brief
 
-**Veto:** terminal, HUD, boot, CRT, cyber-command, green hacker aesthetic.
+**Veto:** terminal/HUD, purple/violet/indigo “AI slop” gradients.
 
-**Goal:** Awwwards-style personal campaign — massive type, full-bleed media, scroll cinema, asymmetric layouts.
+**Palette:** void `#050505`, ink `#FAFAFA`, mute `#A3A3A3`, accent signal orange `#FF4D00`, wordmark warm `#F5F0E8`.
 
-**Accent:** electric violet `#8B5CF6` on near-black + white.
+**Goal:** Bold campaign site — billboard type, full-bleed neutral media, GSAP scroll.
 
-**Content:** BUILD-BIBLE facts, routes, AEO, schema — scene *copy* valid; terminal art direction cancelled.
-
-**Home flow:** Hero → Proof strip → Work → About → Contact.
+**Content:** BUILD-BIBLE facts, routes, AEO unchanged.
