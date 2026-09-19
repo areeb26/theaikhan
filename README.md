@@ -40,11 +40,19 @@ Defaults to production URL in `content/site.ts`.
 
 ## Deploy (Vercel)
 
-1. Import this repo in [Vercel](https://vercel.com).
-2. Framework preset: **Next.js** (default).
-3. Add domain **theaikhan.com** (and `www` if desired) in Project → Settings → Domains.
-4. Point DNS A/CNAME records per Vercel instructions.
-5. After deploy, submit `https://theaikhan.com/sitemap.xml` in Google Search Console.
+- **Repo:** https://github.com/areeb26/theaikhan (Git connected — pushes to `main` auto-deploy)
+- **Production:** https://theaikhan.vercel.app
+
+### Custom domain `theaikhan.com`
+
+At your DNS host (Spaceship), either:
+
+1. **Recommended:** `A` record `@` → `76.76.21.21`, or  
+2. Point nameservers to Vercel: `ns1.vercel-dns.com`, `ns2.vercel-dns.com`
+
+Then run `vercel domains verify theaikhan.com` or check the Vercel dashboard.
+
+After DNS propagates, submit `https://theaikhan.com/sitemap.xml` in Google Search Console.
 
 ## Routes
 
