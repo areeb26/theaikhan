@@ -6,6 +6,7 @@ import { site } from "@/content/site";
 import { AgentChip } from "@/components/ui/AgentChip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GlassPanel } from "@/components/ui/GlassPanel";
+import { CountUp } from "@/components/motion/CountUp";
 import { MetricStat } from "@/components/ui/MetricStat";
 import { MockFrame } from "@/components/ui/MockFrame";
 
@@ -34,15 +35,20 @@ export function CaseStudyPage({ slug }: Props) {
         ) : null}
 
         <div className="site-container relative flex min-h-[85svh] flex-col justify-end pb-16 pt-28 sm:pb-24">
-          <Eyebrow>{project.role ?? "Project"}</Eyebrow>
-          <h1 className="mt-6 max-w-4xl font-display text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">
+          <Eyebrow className="page-hero-reveal">{project.role ?? "Project"}</Eyebrow>
+          <h1 className="page-hero-reveal section-heading mt-6 max-w-4xl font-display text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">
             {project.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-xl text-zinc-300">{project.oneLiner}</p>
+          <p className="page-hero-reveal mt-6 max-w-2xl text-xl text-zinc-300">{project.oneLiner}</p>
 
           {isIntezam && project.heroMetric ? (
-            <div className="mt-12 border-l-4 border-accent pl-6">
-              <MetricStat label={project.heroMetric.label} value={project.heroMetric.value} large />
+            <div className="page-hero-reveal mt-12 border-l-4 border-accent pl-6">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500">
+                {project.heroMetric.label}
+              </p>
+              <p className="stat-giant mt-2 font-display text-ink">
+                <CountUp end={3400} suffix="+" />
+              </p>
             </div>
           ) : null}
 
@@ -94,15 +100,26 @@ export function CaseStudyPage({ slug }: Props) {
                 ))}
               </div>
             </div>
-            <div className="space-y-6 rounded-3xl border border-white/10 bg-surface p-8 lg:col-span-5 lg:p-10">
-              {project.certificateProof.metrics.map((m) => (
-                <MetricStat
-                  key={m.label}
-                  label={m.label}
-                  value={m.value}
-                  large={m.label === "Certificates"}
-                />
-              ))}
+            <div className="page-reveal space-y-6 rounded-3xl border border-white/10 bg-surface p-8 lg:col-span-5 lg:p-10">
+              {project.certificateProof.metrics.map((m) =>
+                m.label === "Certificates" ? (
+                  <div key={m.label}>
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500">{m.label}</p>
+                    <p className="stat-giant mt-2 font-display">
+                      <CountUp end={3400} suffix="+" />
+                    </p>
+                  </div>
+                ) : m.label === "Hours saved" ? (
+                  <div key={m.label}>
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500">{m.label}</p>
+                    <p className="mt-2 font-display text-3xl font-bold sm:text-4xl">
+                      <CountUp end={850} prefix="~" flashOnComplete={false} />
+                    </p>
+                  </div>
+                ) : (
+                  <MetricStat key={m.label} label={m.label} value={m.value} />
+                ),
+              )}
             </div>
           </section>
         ) : null}

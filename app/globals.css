@@ -33,7 +33,9 @@ html {
     scroll-behavior: auto;
   }
   .reveal-block,
-  .split-inner {
+  .split-inner,
+  .char-inner,
+  .subline-inner {
     opacity: 1 !important;
     transform: none !important;
   }

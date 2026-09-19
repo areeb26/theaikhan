@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
+import { ensureGsapPlugins, gsap } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 
 const links = [
   { href: "/projects", label: "Work" },
@@ -12,6 +15,7 @@ const links = [
 ];
 
 export function Nav() {
+  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -21,9 +25,26 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      ensureGsapPlugins();
+      const el = headerRef.current;
+      if (!el) return;
+      gsap.to(el, {
+        scale: scrolled ? 0.98 : 1,
+        duration: 0.35,
+        ease: "power2.out",
+        transformOrigin: "top center",
+      });
+    },
+    { dependencies: [scrolled], scope: headerRef },
+  );
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+      ref={headerRef}
+      className={`fixed top-0 z-50 w-full will-change-transform transition-colors duration-500 ${
         scrolled ? "glass-nav" : ""
       }`}
     >

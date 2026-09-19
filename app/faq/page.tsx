@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PageScrollMotion } from "@/components/motion/PageScrollMotion";
 import { PageShell } from "@/components/layout/PageShell";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { faqItems } from "@/content/faq";
@@ -25,6 +26,7 @@ function faqPageJsonLd() {
 
 export default function FaqPage() {
   return (
+    <PageScrollMotion>
     <PageShell title="FAQ" eyebrow={site.brand}>
       <JsonLd data={faqPageJsonLd()} />
       <dl className="space-y-6">
@@ -36,5 +38,6 @@ export default function FaqPage() {
         ))}
       </dl>
     </PageShell>
+    </PageScrollMotion>
   );
 }

@@ -19,9 +19,9 @@ export function ProjectCard({ project, index = 0, showcase = true }: Props) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className={`group grid items-center gap-8 lg:grid-cols-12 lg:gap-12 ${flip ? "" : ""}`}
+      className={`group grid items-center gap-8 transition-transform duration-500 hover:-translate-y-1 lg:grid-cols-12 lg:gap-12 max-lg:hover:translate-y-0`}
     >
-      <div className={`lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
+      <div className={`work-panel-media lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
         <MockFrame
           slug={project.slug}
           title={project.title}
@@ -38,7 +38,7 @@ export function ProjectCard({ project, index = 0, showcase = true }: Props) {
         <p className={`mt-4 text-lg leading-relaxed text-mute ${flip ? "lg:ml-auto" : ""} max-w-md`}>
           {project.oneLiner}
         </p>
-        <span className={`mt-6 inline-block text-sm font-semibold text-ink underline decoration-accent underline-offset-4 ${flip ? "lg:float-right" : ""}`}>
+        <span className={`mt-6 inline-block text-sm font-semibold text-ink underline decoration-accent underline-offset-4`}>
           View case study
         </span>
       </div>

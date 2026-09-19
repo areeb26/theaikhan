@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CaseStudyPage } from "@/components/projects/CaseStudyPage";
+import { PageScrollMotion } from "@/components/motion/PageScrollMotion";
 import { getProject, projectSlugs } from "@/content/projects";
 import { pageTitle } from "@/content/site";
 
@@ -21,5 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectRoute({ params }: Props) {
   const { slug } = await params;
-  return <CaseStudyPage slug={slug} />;
+  return (
+    <PageScrollMotion>
+      <CaseStudyPage slug={slug} />
+    </PageScrollMotion>
+  );
 }

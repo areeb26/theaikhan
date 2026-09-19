@@ -12,6 +12,14 @@ Source of truth: [BUILD-BIBLE.md](./BUILD-BIBLE.md).
 | **B** | Done | Lenis + GSAP scroll bridge; WebGL canvas + Boot terminal + Signal CTA |
 | **C** | Done | Systems graph, Agents chips, Builds planes, Signal monolith; performance tiers |
 
+## GSAP motion pass
+
+- **Lenis** smooth scroll (desktop) via [`MotionProvider`](components/motion/MotionProvider.tsx) — `ScrollTrigger.update` on scroll.
+- **Home:** [`HomeScrollCinema`](components/motion/HomeScrollCinema.tsx) — char-stagger wordmark, orange line draw, hero pin/scrub, proof cards, work panel scrub, heading clip reveals.
+- **Count-ups:** [`CountUp`](components/motion/CountUp.tsx) on home proof strip and Intezam case study (`3,400+`, `~850`).
+- **Routes:** orange wipe [`RouteTransition`](components/motion/RouteTransition.tsx); triggers killed + refreshed on navigation.
+- **`prefers-reduced-motion`:** Lenis off; content visible immediately; minimal animation.
+
 ## Develop
 
 ```bash

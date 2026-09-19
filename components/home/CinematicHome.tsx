@@ -2,23 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { CampaignHome } from "./CampaignHome";
-import { CampaignMotion } from "@/components/motion/CampaignMotion";
-import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
+import { HomeScrollCinema } from "@/components/motion/HomeScrollCinema";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export function CinematicHome() {
-  const [motion, setMotion] = useState(true);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    setMotion(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setEnabled(!prefersReducedMotion());
   }, []);
 
-  const content = (
-    <CampaignMotion enabled={motion}>
+  return (
+    <HomeScrollCinema enabled={enabled}>
       <CampaignHome />
-    </CampaignMotion>
+    </HomeScrollCinema>
   );
-
-  if (!motion) return content;
-
-  return <SmoothScrollProvider>{content}</SmoothScrollProvider>;
 }

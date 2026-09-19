@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageScrollMotion } from "@/components/motion/PageScrollMotion";
 import { PageShell } from "@/components/layout/PageShell";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { pageTitle, site } from "@/content/site";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
+    <PageScrollMotion>
     <PageShell title={site.name} eyebrow={site.brand}>
       <p className="-mt-4 max-w-2xl text-xl leading-relaxed text-mute">{site.definition}</p>
 
@@ -37,5 +39,6 @@ export default function AboutPage() {
         <Link href="/#contact" className="text-accent hover:underline">Contact</Link>
       </p>
     </PageShell>
+    </PageScrollMotion>
   );
 }

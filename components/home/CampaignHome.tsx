@@ -2,6 +2,7 @@ import Link from "next/link";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { HeroSection } from "@/components/home/HeroSection";
+import { CountUp } from "@/components/motion/CountUp";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { MagneticLink } from "@/components/ui/MagneticLink";
@@ -17,12 +18,11 @@ export function CampaignHome() {
 
       <HeroSection />
 
-      {/* Proof */}
-      <section className="reveal-block bleed-x border-y border-white/10 bg-surface">
+      <section className="proof-strip reveal-block bleed-x border-y border-white/10 bg-surface">
         <div className="site-container grid min-h-[min(80vh,720px)] lg:grid-cols-2">
-          <div className="flex flex-col justify-center border-b border-white/10 py-16 lg:border-b-0 lg:border-r lg:py-24 lg:pr-16">
+          <div className="proof-card flex flex-col justify-center border-b border-white/10 py-16 lg:border-b-0 lg:border-r lg:py-24 lg:pr-16">
             <Eyebrow>12Pilot · CTO</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h2 className="section-heading mt-6 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               {pilot?.title}
             </h2>
             <p className="mt-6 max-w-md text-lg text-mute">{pilot?.oneLiner}</p>
@@ -41,7 +41,7 @@ export function CampaignHome() {
               Team proof on 12pilot.net/about
             </a>
           </div>
-          <div className="relative flex flex-col justify-center overflow-hidden py-16 lg:py-24 lg:pl-16">
+          <div className="proof-card relative flex flex-col justify-center overflow-hidden py-16 lg:py-24 lg:pl-16">
             <p
               className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 select-none font-display stat-giant text-accent/15"
               aria-hidden
@@ -50,17 +50,20 @@ export function CampaignHome() {
             </p>
             <Eyebrow>IntezamTech</Eyebrow>
             <p className="stat-giant mt-4 font-display text-ink">
-              3,400<span className="text-accent">+</span>
+              <CountUp end={3400} suffix="+" className="text-ink" />
             </p>
             <p className="mt-2 text-lg text-zinc-300">certificates issued</p>
             <ul className="mt-8 space-y-3 text-base text-mute">
               <li>Name-on-certificate app + issuance automation</li>
               <li>Seerat ki Dunya & Sarf ki Dunya</li>
-              <li>15+ min → seconds · ~850 hours saved</li>
+              <li>
+                15+ min → seconds ·{" "}
+                <CountUp end={850} prefix="~" suffix=" hours saved" flashOnComplete={false} />
+              </li>
             </ul>
             <Link
               href="/projects/intezamtech"
-              className="mt-10 inline-flex w-fit rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-ink hover:bg-accent hover:text-white"
+              className="mt-10 inline-flex w-fit rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-ink hover:bg-accent hover:text-ink"
             >
               Certificate system story
             </Link>
@@ -68,19 +71,18 @@ export function CampaignHome() {
         </div>
       </section>
 
-      {/* Work */}
       <section id="work" className="py-24 sm:py-36">
         <div className="site-container">
           <div className="reveal-block flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <Eyebrow>Selected work</Eyebrow>
-              <h2 className="mt-4 font-display text-5xl font-bold sm:text-6xl">Products</h2>
+              <h2 className="section-heading mt-4 font-display text-5xl font-bold sm:text-6xl">Products</h2>
             </div>
             <Link href="/projects" className="text-sm font-semibold text-accent">All projects →</Link>
           </div>
           <div className="mt-20 space-y-28 sm:space-y-36">
             {featured.map((p, i) => (
-              <div key={p.slug} className="reveal-block">
+              <div key={p.slug} className="work-panel">
                 <ProjectCard project={p} index={i} />
               </div>
             ))}
@@ -88,12 +90,11 @@ export function CampaignHome() {
         </div>
       </section>
 
-      {/* About */}
       <section id="about" className="reveal-block bleed-x mesh-ink py-24 sm:py-32">
         <div className="site-container grid gap-16 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>About</Eyebrow>
-            <h2 className="mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
+            <h2 className="section-heading mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
               Built in Karachi.
               <br />
               <span className="text-accent">Shipped globally.</span>
@@ -112,24 +113,23 @@ export function CampaignHome() {
         </div>
       </section>
 
-      {/* Contact */}
       <section id="contact" className="reveal-block relative overflow-hidden py-28 sm:py-40">
         <div className="absolute inset-0 mesh-hero" aria-hidden />
         <div className="site-container relative">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <h2 className="font-display text-5xl font-bold sm:text-7xl">
+            <h2 className="section-heading font-display text-5xl font-bold sm:text-7xl">
               Let&apos;s build something ambitious.
             </h2>
             <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
               <MagneticLink
                 href={site.links.linkedin}
-                className="rounded-full bg-accent px-10 py-4 text-center text-sm font-semibold text-white"
+                className="hero-cta rounded-full bg-accent px-10 py-4 text-center text-sm font-semibold text-ink"
               >
                 LinkedIn
               </MagneticLink>
               <a
                 href={site.links.instagram}
-                className="rounded-full border border-white/25 px-10 py-4 text-center text-sm font-semibold hover:border-accent"
+                className="hero-cta rounded-full border border-white/25 px-10 py-4 text-center text-sm font-semibold hover:border-accent"
                 target="_blank"
                 rel="noopener noreferrer"
               >
