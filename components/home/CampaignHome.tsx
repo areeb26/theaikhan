@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
@@ -7,6 +8,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { MagneticLink } from "@/components/ui/MagneticLink";
 import { MockFrame } from "@/components/ui/MockFrame";
+import { Marquee } from "@/components/ui/Marquee";
 
 export function CampaignHome() {
   const featured = projects.filter((p) => p.featured);
@@ -17,6 +19,18 @@ export function CampaignHome() {
       <a href="#work" className="skip-link">Skip to work</a>
 
       <HeroSection />
+
+      <section className="reveal-block border-y border-white/10 bg-surface/60 py-8">
+        <Marquee
+          items={[
+            "AI Agents",
+            "LinkedIn Automation",
+            "Product Engineering",
+            "SaaS Systems",
+            "Karachi → Global",
+          ]}
+        />
+      </section>
 
       <section className="proof-strip reveal-block bleed-x border-y border-white/10 bg-surface">
         <div className="site-container grid min-h-[min(80vh,720px)] lg:grid-cols-2">
@@ -91,17 +105,27 @@ export function CampaignHome() {
       </section>
 
       <section id="about" className="reveal-block bleed-x mesh-ink py-24 sm:py-32">
-        <div className="site-container grid gap-16 lg:grid-cols-2 lg:items-center">
-          <div>
+        <div className="site-container grid gap-16 lg:grid-cols-12 lg:items-center">
+          <div className="reveal-block lg:col-span-5">
+            <div className="portrait-frame relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
+              <Image
+                src="/images/areeb.jpg"
+                alt={`Portrait of ${site.name}`}
+                fill
+                sizes="(min-width: 1024px) 24rem, 80vw"
+                className="portrait-img object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 portrait-tint" aria-hidden />
+            </div>
+          </div>
+          <div className="lg:col-span-7">
             <Eyebrow>About</Eyebrow>
             <h2 className="section-heading mt-4 font-display text-5xl font-bold leading-[1.05] sm:text-6xl">
               Built in Karachi.
               <br />
               <span className="text-accent">Shipped globally.</span>
             </h2>
-          </div>
-          <div>
-            <p className="text-xl leading-relaxed text-zinc-300">{site.definition}</p>
+            <p className="mt-8 text-xl leading-relaxed text-zinc-300">{site.definition}</p>
             <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm font-semibold">
               <a href={site.links.linkedin} className="hover:text-accent" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href={site.links.instagram} className="hover:text-accent" target="_blank" rel="noopener noreferrer">Instagram</a>

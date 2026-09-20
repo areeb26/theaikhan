@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Syne } from "next/font/google";
 import { FooterMotion } from "@/components/motion/FooterMotion";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { Preloader } from "@/components/motion/Preloader";
+import { CustomCursor } from "@/components/motion/CustomCursor";
 import { Nav } from "@/components/hud/Nav";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { personJsonLd } from "@/components/seo/person-schema";
@@ -54,6 +56,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-bg text-ink">
         <JsonLd data={personJsonLd()} />
+        <Preloader />
+        <CustomCursor />
         <MotionProvider>
           <Nav />
           <div className="flex flex-1 flex-col">{children}</div>

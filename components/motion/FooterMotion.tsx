@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { site } from "@/content/site";
-import { ensureGsapPlugins, gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
+import { initScrollReveal } from "@/lib/reveal";
 
 const social = [
   { href: site.links.linkedin, label: "LinkedIn" },
@@ -18,26 +17,11 @@ const social = [
 export function FooterMotion() {
   const ref = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion()) return;
-      ensureGsapPlugins();
-      const links = ref.current?.querySelectorAll(".footer-link");
-      if (!links?.length) return;
-      gsap.from(links, {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top 95%",
-        },
-      });
-    },
-    { scope: ref },
-  );
+  useEffect(() => {
+    const root = ref.current;
+    if (!root || prefersReducedMotion()) return;
+    return initScrollReveal(root, ".footer-link");
+  }, []);
 
   return (
     <footer ref={ref} className="border-t border-line py-16">
