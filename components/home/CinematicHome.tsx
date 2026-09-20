@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { CampaignHome } from "./CampaignHome";
 import { HomeScrollCinema } from "@/components/motion/HomeScrollCinema";
 import { prefersReducedMotion } from "@/lib/motion";
+import { useSyncClientValue } from "@/lib/useSyncClientValue";
 
 export function CinematicHome() {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    setEnabled(!prefersReducedMotion());
-  }, []);
+  const enabled = useSyncClientValue(() => !prefersReducedMotion(), false);
 
   return (
     <HomeScrollCinema enabled={enabled}>

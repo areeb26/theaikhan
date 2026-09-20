@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ensureGsapPlugins, gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
+import { onceVisible } from "@/lib/reveal";
 
 type Props = {
   end: number;
@@ -40,29 +41,26 @@ export function CountUp({
         return;
       }
 
-      const state = { val: 0 };
-      gsap.to(state, {
-        val: end,
-        duration,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 88%",
-          once: true,
-        },
-        onUpdate: () => {
-          el.textContent = formatValue(state.val, prefix, suffix);
-        },
-        onComplete: () => {
-          el.textContent = display;
-          if (flashOnComplete) {
-            gsap.fromTo(
-              el,
-              { color: "#fafafa" },
-              { color: "#ff4d00", duration: 0.12, yoyo: true, repeat: 1 },
-            );
-          }
-        },
+      return onceVisible(el, () => {
+        const state = { val: 0 };
+        gsap.to(state, {
+          val: end,
+          duration,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.textContent = formatValue(state.val, prefix, suffix);
+          },
+          onComplete: () => {
+            el.textContent = display;
+            if (flashOnComplete) {
+              gsap.fromTo(
+                el,
+                { color: "#fafafa" },
+                { color: "#ff4d00", duration: 0.12, yoyo: true, repeat: 1 },
+              );
+            }
+          },
+        });
       });
     },
     { scope: ref, dependencies: [end, prefix, suffix, duration] },

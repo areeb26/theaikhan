@@ -4,6 +4,7 @@ import Link from "next/link";
 import { site } from "@/content/site";
 import { WordmarkSplit } from "@/components/motion/WordmarkSplit";
 import { MagneticLink } from "@/components/ui/MagneticLink";
+import { HeroScene } from "@/components/canvas/HeroScene";
 
 export function HeroSection() {
   return (
@@ -13,6 +14,12 @@ export function HeroSection() {
         className="pointer-events-none absolute -right-[15%] top-[10%] h-[60vmin] w-[60vmin] rounded-full bg-accent/10 blur-[100px]"
         aria-hidden
       />
+      <div
+        className="pointer-events-none absolute -right-[8%] top-[-4%] hidden h-[64vmin] w-[64vmin] sm:block lg:right-[0%] lg:top-[2%]"
+        aria-hidden
+      >
+        <HeroScene />
+      </div>
 
       <div className="site-container relative z-10 flex min-h-[100svh] flex-col justify-end pb-12 pt-24 sm:pb-20 sm:pt-28">
         <div className="hero-title grid gap-10 lg:grid-cols-12 lg:items-end">

@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef, type ReactNode } from "react";
 import { ensureGsapPlugins, gsap } from "@/lib/gsap";
 import { isMobileViewport } from "@/lib/motion";
+import { initScrollReveal } from "@/lib/reveal";
 
 type Props = { children: ReactNode; enabled: boolean };
 
@@ -74,35 +75,6 @@ export function HomeScrollCinema({ children, enabled }: Props) {
         tl.to(heroTitle, { y: -90, opacity: 0.25, ease: "none" }, 0);
       }
 
-      const proofStrip = root.querySelector(".proof-strip");
-      if (proofStrip) {
-        gsap.from(root.querySelectorAll(".proof-card"), {
-          y: 70,
-          rotation: mobile ? 0 : 2.5,
-          skewY: mobile ? 0 : 3,
-          opacity: 0,
-          duration: 0.85,
-          stagger: 0.14,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: proofStrip,
-            start: "top 78%",
-          },
-        });
-      }
-
-      root.querySelectorAll(".section-heading").forEach((heading) => {
-        gsap.from(heading, {
-          clipPath: "inset(100% 0 0 0)",
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 86%",
-          },
-        });
-      });
-
       root.querySelectorAll(".work-panel").forEach((panel) => {
         const media = panel.querySelector(".work-panel-media");
         gsap.fromTo(
@@ -138,23 +110,18 @@ export function HomeScrollCinema({ children, enabled }: Props) {
         }
       });
 
-      root.querySelectorAll(".reveal-block").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: mobile ? 40 : 72 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: mobile ? 0.6 : 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              toggleActions: "play none none reverse",
-            },
-          },
-        );
-      });
+      // Plain (non-scrub) fade/clip reveals are handled by IntersectionObserver
+      // + CSS transitions instead of ScrollTrigger — more resilient to the
+      // pinned hero's dynamic spacer shifting layout after trigger creation.
+      const disconnectReveal = initScrollReveal(root, ".reveal-block");
+      const disconnectHeading = initScrollReveal(root, ".section-heading");
+      const disconnectProof = initScrollReveal(root, ".proof-card");
+
+      return () => {
+        disconnectReveal();
+        disconnectHeading();
+        disconnectProof();
+      };
     },
     { scope: rootRef, dependencies: [enabled] },
   );
